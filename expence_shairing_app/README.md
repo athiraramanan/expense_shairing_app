@@ -1,24 +1,17 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is an application for a person or group to track bills and other shared expenses, so that everyone gets paid back.
 
-Things you may want to cover:
+*Things you may want to cover:
 
-* Ruby version
+* Ruby version  ruby 2.6.3p62
 
-* System dependencies
-
-* Configuration
+* Rails version Rails 6.1.4
 
 * Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+   * rails db:create
+   * rails db:migrate
+   * rails db:seed
+   
+ * Admin Configuration
+   * Active Admin

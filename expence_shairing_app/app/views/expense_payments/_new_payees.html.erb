@@ -1,0 +1,33 @@
+ <%= form_for (@paid_user) do |f| %>
+    <div class="wrapper wrapper-content">
+      <div class="ibox">
+        <div class="ibox-content">
+          <div class="row">
+            <div class="col-lg-4  col-sm-4">
+              <%='Payee'%>
+            </div>
+            <div class="col-lg-8 col-sm-8">
+            	<%= f.select(:user_id, options_for_select(@share_holders.collect{ |u| [u.first_name, u.id] }), {include_blank: 'Select Payee'}, { :class => 'chosen-input' }) %>
+            </div>
+          </div>
+          <br/>
+          <div class="row">
+            <div class="col-lg-4 col-sm-4">
+              <%='Amount'%>
+            </div>
+            <div class="col-lg-8 col-sm-8">
+              <%= f.text_field :share_amount, class: 'negotiation_text_field'%>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-10 col-sm-10">
+            </div>
+            <div class="col-lg-2 col-sm-2">
+              <%= f.hidden_field :expense_payment_id, value: @expense_payment.id %>
+              <%= f.submit 'Add Payee' ,id: "add_payee_btn", class: "btn btn-xs btn-primary"%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>

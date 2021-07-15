@@ -1,0 +1,25 @@
+<%= form_tag(expense_table_dashboard_chart_index_path, method: :get) do %>
+  <strong> Search for expense </strong>
+  <%= select_tag "group_id", options_from_collection_for_select(Group.all, "id", "name"),:class => 'form-control', prompt: 'please select group' , selected: params[:group_id] %></br></br>
+  <%= select_tag "user_id", options_from_collection_for_select(User.all, "id", "first_name"),:class => 'form-control', prompt: 'please select payee' %></br></br>
+  <%= submit_tag ("Search") %>
+<% end %>
+<h1>Payments</h1>
+<table>
+  <tr>
+    <th>Expense</th>
+    <th>Payee</th>
+    <th>Group</th>
+    <th>Amount</th>
+    <th>Paid At</th>
+  </tr>
+  <% @payments.each do |payment| %>
+    <tr>
+      <td><%= payment[0]%></td>
+      <td><%= payment[1] %></td>
+      <td><%= payment[2] %></td>
+      <td><%= with_precision(payment[3])%></td>
+      <td><%= format_date(payment[4])%></td>
+    </tr>
+  <% end %>
+  </table>

@@ -1,0 +1,36 @@
+<div class="feed-activity-list">
+  <div class="feed-element">
+    <%@expense_payment.paid_users.each_with_index do |paid_user, index| %>
+      <div class='row'>
+        <div class="col-lg-12 col-sm-12">
+          <small class="pull-right"></small>
+          <a href="#">
+            <img alt="image" class="img-circle" src="/user_default.png">
+          </a>
+          <strong><%=paid_user.user.try(:first_name)%></strong>
+          <div>
+            <small class="text-muted">
+              <%= I18n.l(paid_user.created_at, format: :long)%>
+            </small>
+          </div>
+        </div>
+        <div class="col-lg-12 col-sm-12">
+          <div class='row' >
+            <div class="col-lg-4 col-sm-4 col-xs-12">
+              <%= 'Paid Amount:'%>
+              <%= with_precision(paid_user.share_amount)%>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-12 col-sm-12 col-xs-12">
+        </div>
+      </div>
+      <div class="clear"><br><br><br></div>
+    <%end%>
+    <div class="clear"><br></div>
+    <div class="clear"><br></div>
+    <div>
+      <%= render 'new_payees' %>
+    </div>
+  </div>
+</div>

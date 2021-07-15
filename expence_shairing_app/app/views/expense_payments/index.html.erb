@@ -1,0 +1,48 @@
+
+<div style="clear: both;"></br></br></br></div>
+  <%= render "new", locals: {expense_payment: @expense_payment} %>
+  <%if @expense_payments.present? %>
+    <div class="generic">
+      <div class="ibox-title">
+        <h3>Payment Histories</h3>
+        <div class="ibox-tools col-lg-3 pull-right">
+          <div class="input-group">
+            <span class="input-group-btn">
+            </span>
+          </div>
+        </div>
+        <div style="clear: both;"></div>
+      </div>
+      <div class="ibox-content">
+        <div class="table-responsive">
+          <table class="table table-hover no-margins">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Expense</th>
+              <th>Group</th>
+              <th>Amount</th>
+              <th></th>
+              <th></th>
+              </tr>
+            </thead>
+          <tbody>
+            <%@count = 1%>
+            <%@expense_payments.each_with_index do |payment, index| %>
+            <tr>
+            <td><%= @count+ index %></td>
+            <td><%=payment&.expense&.name%></td>
+            <td><%=payment&.group&.name%></td>
+            <td><%=with_precision(payment&.amount)%></td>
+            <td><%= link_to 'Add Payee', expense_payment_path(payment), method: :get, class: "btn btn-xs btn-primary" %></td>
+             <td><%= link_to 'Balance', expense_balance_dashboard_chart_index_path(expense: payment), method: :get, class: "btn btn-xs btn-primary" %></td>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+  <%end%>
+</div>
+

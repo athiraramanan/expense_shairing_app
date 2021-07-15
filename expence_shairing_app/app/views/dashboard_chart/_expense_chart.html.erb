@@ -1,0 +1,21 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<body>
+    <div class="col-md-2">
+        <h3 class="ticket-margin">
+          <i class="icon-calendar"></i><%= t('From') %></h3>
+        <%= date_field :start_date, params[:start_date], value: Time.now.beginning_of_month.strftime('%Y-%m-%d'), name: 'daterange', id: "start_date",class: "form-control form-control-inline input-small date-picker date_range filter_date",size: "16" %>
+    </div>
+    <div class="col-md-2 pdng-egt-nne">
+        <h3 class="ticket-margin">
+          <i class="icon-calendar"></i><%= t('To') %></h3>
+        <%= date_field :end_date, params[:end_date], value: Time.now.strftime('%Y-%m-%d'), name: 'daterange', id: "end_date" ,class: "form-control form-control-inline input-small date-picker date_range filter_date",size: "16" %>
+    </div>
+    <br/><br/>
+    <div class="col2">
+        <button id="sample_editable_1_new" class="btn sbold green btn-mrg" data-target="#stack1" data-toggle="modal"> <%= 'Plot Chart' %>
+          <i class="fa fa-plus"></i>
+        </button>
+    </div> 
+    <div id="pie_chart_container" style="height: 400px; min-width: 310px"></div>
+</body>

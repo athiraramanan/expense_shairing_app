@@ -1,0 +1,65 @@
+<div class="wrapper wrapper-content">
+  <div class = "clear"></div>
+  <div class="wrapper-content margin_top">
+    <%= form_for(@expense_payment) do |f| %>
+      <div class="row">
+        <div class="col-lg-4">
+          <%= f.label 'Expense' %>
+        </div>
+        <div class="col-lg-4">
+          <%= f.select(:expense_id, options_for_select(Expense.all.collect{ |u| [u.name, u.id] }), {include_blank: 'Select Expense'}, { :class => 'chosen-input' }) %>
+       </div>
+      </div>
+      <div class="clear"><br></div>
+      <div class="row">
+        <div class="col-lg-4">
+          <%= f.label 'Group' %>
+        </div>
+        <div class="col-lg-4">
+          <%= f.select(:group_id, options_for_select(Group.all.collect{ |u| [u.name, u.id] }), {include_blank: 'Select Group'}, { :class => 'chosen-input' }) %>
+        </div>
+      </div>
+      <div class="clear"><br></div>
+      <div class="row">
+        <div class="col-lg-4">
+          <%= f.label 'Amount' %>
+        </div>
+        <div class="col-lg-4">
+          <%= f.number_field :amount, required: true, style: "width: 110%;" %>
+        </div>
+      </div>
+      <div class="clear"><br></div>
+      <div class="row">
+        <div class="col-lg-4">
+          <%= f.label 'Date' %>
+        </div>
+        <div class="col-lg-4">
+          <%= f.date_field :date, required: true, value: Time.now.strftime('%Y-%m-%d'),style: "width: 110%;" %>
+        </div>
+      </div>
+      <div class="clear"><br></div>
+      <div class="row">
+        <div class="col-lg-4">
+          <%= f.label 'Description' %>
+        </div>
+        <div class="col-lg-4">
+          <%= f.text_field :description, required: true, style: "width: 110%;" %>
+        </div>
+      </div>
+      <div class="clear"><br></div>
+      <div class="row">
+        <div class="col-lg-4">
+        </div>
+        <div class="col-lg-4">
+           <%= f.submit 'Add Expense', class: "btn btn-large btn-primary" %>
+        </div>
+        <div class="col-lg-4">
+        </div>
+        <div class="col-lg-4">
+          <%= link_to 'Chart', dashboard_chart_index_path, method: :get, class: "btn btn-xs btn-primary" %>
+          <%= link_to 'Spending Summary', expense_table_dashboard_chart_index_path, method: :get, class: "btn btn-xs btn-primary" %>
+        </div>
+      </div>
+    <% end %>
+ </div>
+</div>
