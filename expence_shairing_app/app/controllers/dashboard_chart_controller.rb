@@ -24,7 +24,8 @@ class DashboardChartController < ApplicationController
 		expense_payment = ExpensePayment.find params['expense']
 		@total_expense = expense_payment.amount
 		@paid_users = expense_payment.paid_users
-		@share_amount = (@total_expense / @paid_users.count)
+		@non_paid_users = User.where(id: expense_payment.group.users.pluck(:id)-@paid_users.pluck(:user_id))
+		@share_amount = (@total_expense / expense_payment.group.users.count)
 	end
 
 	def expense_table
@@ -48,6 +49,7 @@ class DashboardChartController < ApplicationController
   end
 
   def group_expenses_share(expenses)
+  	@payments=[]
   	expenses.each do |exp|
   		users = if params['user_id'].present?
   							exp.paid_users.where(user_id: params['user_id'])
@@ -55,15 +57,16 @@ class DashboardChartController < ApplicationController
   							exp.paid_users
   						end
 		 	users.each do |exp_user|
-	   		payment = [exp_user.expense_payment.expense.name, exp_user.user.first_name, exp_user.expense_payment.group.name, exp_user.share_amount, exp_user.expense_payment.date]
+	   		payment = [exp_user.expense_payment.name, exp_user.first_name, exp_user.expense_payment.group.name, exp_user.share_amount, exp_user.date]
 	 	  	@payments << payment
 	 	  end
 	 	 end
   end
 
   def personal_expenses_share(expenses)
+  	@payments=[]
 	 	expenses.each do |exp_user|
-   		payment = [exp_user.expense_payment.expense.name, exp_user.user.first_name, exp_user.expense_payment.group.name, exp_user.share_amount, exp_user.expense_payment.date]
+   		payment = [exp_user.expense_payment.name, exp_user.first_name, exp_user.expense_payment.group.name, exp_user.share_amount, exp_user.date]
  	  	@payments << payment
  	  end
   end

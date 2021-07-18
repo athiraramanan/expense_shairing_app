@@ -12,7 +12,7 @@
           <a href="#">
             <img alt="image" class="img-circle" src="/user_default.png">
           </a>
-          <strong><%=paid_user.user.try(:first_name)%></strong>
+          <strong><%=paid_user.try(:first_name)%></strong>
           <div>
             <small class="text-muted">
               <%= I18n.l(paid_user.created_at, format: :long)%>
@@ -31,12 +31,48 @@
           <div class='row' >
             <div class="col-lg-4 col-sm-4 col-xs-12">
             	<%= paid_user.user.try(:first_name) %> 
-            	<%if (@share_amount<paid_user.share_amount)%>
+            	<%if (@share_amount < paid_user.share_amount)%>
             		<%= 'Paid Extra:'%>
               <%else%>
               	<%= 'Owes:'%>
               <%end%>
-              	<%= with_precision(@share_amount-paid_user.share_amount)%>
+              	<%= with_precision((@share_amount-paid_user.share_amount).abs)%>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-12 col-sm-12 col-xs-12">
+        </div>
+      </div>
+      <div class="clear"><br><br><br></div>
+    <%end%>
+    <%@non_paid_users.each_with_index do |non_paid_user, index| %>
+         <div class='row'>
+        <div class="col-lg-12 col-sm-12">
+          <small class="pull-right"></small>
+          <a href="#">
+            <img alt="image" class="img-circle" src="/user_default.png">
+          </a>
+          <strong><%=non_paid_user.try(:first_name)%></strong>
+          <div>
+            <small class="text-muted">
+              <%= I18n.l(non_paid_user.created_at, format: :long)%>
+            </small>
+          </div>
+        </div>
+        <div class="col-lg-12 col-sm-12">
+          <div class='row' >
+            <div class="col-lg-4 col-sm-4 col-xs-12">
+              <%= 'Paid Amount:'%>
+              <%= with_precision(0)%>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-12 col-sm-12">
+          <div class='row' >
+            <div class="col-lg-4 col-sm-4 col-xs-12">
+              <%= non_paid_user.try(:first_name) %>            
+                <%= 'Owes:'%>
+                <%= with_precision((@share_amount).abs)%>
             </div>
           </div>
         </div>
